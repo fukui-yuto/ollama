@@ -240,8 +240,8 @@ def extract_json(text: str) -> dict:
 
 
 def route_task(user_input: str, image_path: str = None) -> dict:
-    """リーダーAIがタスクの種類を判断する"""
-    print(f"\n[リーダー] タスクを分析中...")
+    """deepseek-r1:7b がタスクの種類を判断する"""
+    print(f"\n[リーダー] {LEADER_MODEL} がタスクを分析中...")
     prompt = ROUTER_PROMPT.format(
         input=user_input,
         image=image_path if image_path else "なし",
@@ -306,8 +306,8 @@ def run_worker(
 # ─────────────────────────────────────────────
 
 def integrate_result(user_input: str, worker_output: str) -> str:
-    """リーダーが結果を統合・整理する（ストリーミング出力）"""
-    print(f"\n[リーダー] 結果を統合中...\n")
+    """qwen2.5:7b が結果を統合・日本語化する（ストリーミング出力）"""
+    print(f"\n[統合] {WORKERS['text']} が整理中...\n")
 
     MAX_WORKER_CHARS = 1500
     if len(worker_output) > MAX_WORKER_CHARS:
